@@ -2,6 +2,6 @@
 layout: ../layouts/defaut.astro
 ---
 
-# TODO: About
+# About
 
 I'm Derrick Yoo. I create things with code.
