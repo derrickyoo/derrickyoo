@@ -1,39 +1,36 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../layouts/default.astro";
+import Layout from "../layouts/page.astro";
 
 const blogPosts = await getCollection("blog");
 ---
 
 <Layout>
-  <section>
-    <h1>Blog</h1>
-    <div>
-      {
-        blogPosts.map((post) => {
-          return (
-            <article>
-              <h2>
-                <a href={`/blog/${post.slug}`}>{post.data.title}</a>
-              </h2>
-              <time datetime={post.data.date.toISOString()}>
-                {post.data.date.toDateString()}
-              </time>
-              <p>{post.data.description}</p>
-              <p>
-                <a href={`/blog/${post.slug}`}>Read more...</a>
-              </p>
-            </article>
-          );
-        })
-      }
-    </div>
-  </section>
+  <h1>Blog</h1>
 
-  <p>
-    <a href="/rss.xml">
-      <span role="img" aria-label="satelite dish">📡</span>
-      <span>Subscribe to the RSS feed</span>
-    </a>
-  </p>
+  {
+    blogPosts.map((post) => {
+      return (
+        <article>
+          <h2>
+            <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+          </h2>
+          <time datetime={post.data.date.toISOString()}>
+            {post.data.date.toDateString()}
+          </time>
+          <p>{post.data.description}</p>
+          <p>
+            <a href={`/blog/${post.slug}`}>Read more...</a>
+          </p>
+        </article>
+      );
+    })
+  }
 </Layout>
+
+<p>
+  <a href="/rss.xml">
+    <span role="img" aria-label="satelite dish">📡</span>
+    <span>Subscribe to the RSS feed</span>
+  </a>
+</p>
