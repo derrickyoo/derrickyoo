@@ -2,17 +2,42 @@
 import Layout from "../layouts/page.astro";
 
 export const prerender = false;
+
+let message;
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const name = data.get("name");
+    const email = data.get("email");
+
+    // TODO: save user info to newsletter service
+    message = `Subscribed as "${name}" with email "${email}".`;
+  } catch (err) {
+    console.error(err);
+  }
+}
 ---
 
 <Layout>
   <h1>Newsletter</h1>
-  <form method="post">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required />
 
-    <label for="email">Name</label>
-    <input type="email" id="email" name="email" required />
+  <div>
+    <p>{message}</p>
+    <p>
+      <a href="/newsletter">Start over...</a>
+    </p>
+  </div>
 
-    <button type="submit">Subscribe</button>
-  </form>
+  <div>
+    <form method="post">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
 </Layout>
